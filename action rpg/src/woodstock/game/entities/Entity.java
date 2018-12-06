@@ -1,5 +1,6 @@
 package woodstock.game.entities;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import woodstock.game.GameState;
@@ -14,6 +15,8 @@ public abstract class Entity {
 	public BufferedImage image;
 	protected Level level;
 	protected boolean isSolid = false;
+	public boolean isMob = false;
+	public Rectangle collider;
 
 	public Entity(Level level, int x, int y, BufferedImage image) {
 		this.x = x;
@@ -23,6 +26,7 @@ public abstract class Entity {
 		level.entities.add(this);
 		w = image.getWidth();
 		h = image.getHeight();
+		collider = new Rectangle(x, y + (h / 2), w, h / 2);
 	}
 
 	public void tick() {
@@ -39,6 +43,10 @@ public abstract class Entity {
 	
 	public Level getLevel() {
 		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 }
