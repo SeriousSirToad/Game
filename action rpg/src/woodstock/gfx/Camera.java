@@ -39,23 +39,23 @@ public class Camera {
 	public void followEntity() {
 
 		if (x > 0) {
-			if (x + (Main.WIDTH / 2) > entity.x + (entity.w * Entity.entScale / 2)) {
+			if (x + (Main.WIDTH / 2) > entity.x + (entity.w / 2)) {
 				x -= entity.speed;
 			}
 
 		}
 		if (x + Main.WIDTH < entity.getLevel().getWidth()) {
-			if (x + (Main.WIDTH / 2) < entity.x + (entity.w * Entity.entScale / 2)) {
+			if (x + (Main.WIDTH / 2) < entity.x + (entity.w / 2)) {
 				x += entity.speed;
 			}
 		}
 		if (y > 0) {
-			if (y + (Main.HEIGHT / 2) > entity.y + (entity.h * Entity.entScale / 2)) {
+			if (y + (Main.HEIGHT / 2) > entity.y + (entity.h / 2)) {
 				y -= entity.speed;
 			}
 		}
 		if (y + Main.HEIGHT < entity.getLevel().getHeight()) {
-			if (y + (Main.HEIGHT / 2) < entity.y + (entity.h * Entity.entScale / 2)) {
+			if (y + (Main.HEIGHT / 2) < entity.y + (entity.h / 2)) {
 				y += entity.speed;
 			}
 		}

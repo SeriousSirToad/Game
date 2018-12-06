@@ -1,5 +1,7 @@
 package woodstock.game.entities;
 
+import java.awt.Rectangle;
+
 import woodstock.game.Main;
 import woodstock.game.level.Level;
 import woodstock.gfx.Assets;
@@ -11,6 +13,7 @@ public class Player extends Mob{
 
 	public Player(Level level, int x, int y) {
 		super(level, x, y, Assets.player, Assets.pl_hz);
+		collider = new Rectangle((x + 4) * entScale, (y + 24) * entScale, 7 * entScale, 8 * entScale);
 	}
 
 	@Override

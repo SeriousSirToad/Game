@@ -1,5 +1,6 @@
 package woodstock.game.entities;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -19,9 +20,12 @@ public abstract class Mob extends Entity {
 		super(level, x, y, image);
 		this.hz = hz;
 		isMob = true;
+		
 	}
 
 	public void tick() {
+		if(!initialized)
+			init();
 		if (moving) {
 			hz.update();
 		}
@@ -33,25 +37,22 @@ public abstract class Mob extends Entity {
 
 	public void move(int xa, int ya) {
 
-		for (Entity e : level.entities) {
-			if (e.isSolid) {
-				if (xa != 0 && ya != 0) {
-					if (!hasCollided(0, ya, e.collider)) {
-						move(0, ya);
-					}
-					if (!hasCollided(xa, 0, e.collider)) {
-						move(xa, 0);
-					}
-					
+		for (Rectangle r : level.colliders) {
+			
+			if (xa != 0 && ya != 0) {
+				if (!hasCollided(0, ya, r)) {
+					move(0, ya);
+				}
+				if (!hasCollided(xa, 0, r)) {
+					move(xa, 0);
+				}
+
+				return;
+			} else {
+				if (hasCollided(xa, ya, r)) {
 					return;
 				}
-				else {
-					if(hasCollided(xa, ya, e.collider)) {
-						return;
-					}
-				}
-			} else
-				continue;
+			}
 		}
 
 		if (xa != 0 || ya != 0) {
@@ -87,23 +88,29 @@ public abstract class Mob extends Entity {
 	}
 
 	public void render() {
+		for(Rectangle r : level.colliders){
+			Main.g.setColor(Color.blue);
+			Main.g.fill(r);
+			Main.g.draw(collider);
+		}
 		if (GameState.camera.contains(this)) {
 			if (!moving) {
 				if (movingDir != 0) {
-					Main.g.drawImage(image, x - GameState.camera.x, y - GameState.camera.y, w * entScale, h * entScale,
-							null);
+					Main.g.drawImage(image, x - GameState.camera.x, y
+							- GameState.camera.y, w, h, null);
 				} else {
-					Main.g.drawImage(image, x - GameState.camera.x + (w * entScale), y - GameState.camera.y,
-							-(w * entScale), h * entScale, null);
+					Main.g.drawImage(image, x - GameState.camera.x + (w), y
+							- GameState.camera.y, -(w), h, null);
 				}
 
 			} else {
 				if (movingDir != 0) {
-					Main.g.drawImage(hz.animate(), x - GameState.camera.x, y - GameState.camera.y, (w * entScale),
-							h * entScale, null);
+					Main.g.drawImage(hz.animate(), x - GameState.camera.x, y
+							- GameState.camera.y, (w), h, null);
 				} else {
-					Main.g.drawImage(hz.animate(), x - GameState.camera.x + (w * entScale), y - GameState.camera.y,
-							-(w * entScale), h * entScale, null);
+					Main.g.drawImage(hz.animate(),
+							x - GameState.camera.x + (w), y
+									- GameState.camera.y, -(w), h, null);
 				}
 			}
 		}

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 
@@ -19,15 +20,26 @@ public class Level {
 
 	public BufferedImage image;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
-	public Rectangle[] colliders;
+	public ArrayList<Rectangle> colliders = new ArrayList<>();
 
 	private int width = 0;
 	private int height = 0;
+	
+	private Comparator<Entity> entitySorter = new Comparator<Entity>() {
+
+		@Override
+		public int compare(Entity a, Entity b) {
+			if (a.y + a.h < b.y + b.h)
+				return -1;
+			return 1;
+		}
+	};
 
 	public void tick() {
 		for (Entity e : entities) {
 			e.tick();
 		}
+		entities.sort(entitySorter);
 	}
 
 	public void render() {
