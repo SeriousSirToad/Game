@@ -1,5 +1,6 @@
 package woodstock.game.entities;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import woodstock.game.GameState;
@@ -31,10 +32,31 @@ public abstract class Mob extends Entity {
 
 	public void move(int xa, int ya) {
 
+		for (Entity e : level.entities) {
+			if (e.isSolid) {
+				if (xa != 0 && ya != 0) {
+					if (!hasCollided(0, ya, e.collider)) {
+						move(0, ya);
+					}
+					if (!hasCollided(xa, 0, e.collider)) {
+						move(xa, 0);
+					}
+					
+					return;
+				}
+				else {
+					if(hasCollided(xa, ya, e.collider)) {
+						return;
+					}
+				}
+			} else
+				continue;
+		}
+
 		if (xa != 0 || ya != 0) {
-			if (xa < 0)
+			if (xa < 0) {
 				movingDir = 0;
-			else if (xa > 0)
+			} else if (xa > 0)
 				movingDir = 2;
 			else if (ya > 0)
 				movingDir = 1;
@@ -45,16 +67,22 @@ public abstract class Mob extends Entity {
 			moving = false;
 		}
 
-		if (xa != 0 && ya != 0) {
-			move(0, ya);
-			move(xa, 0);
-
-			return;
-		}
-
 		x += xa;
 		y += ya;
+		collider.x += xa;
+		collider.y += ya;
 
+	}
+
+	public boolean hasCollided(int xa, int ya, Rectangle other) {
+
+		Rectangle temp = new Rectangle(collider.x + xa, collider.y + ya, w, h);
+
+		if (temp.intersects(other)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public void render() {
@@ -64,8 +92,8 @@ public abstract class Mob extends Entity {
 					Main.g.drawImage(image, x - GameState.camera.x, y - GameState.camera.y, w * entScale, h * entScale,
 							null);
 				} else {
-					Main.g.drawImage(image, x - GameState.camera.x + (w * entScale), y - GameState.camera.y, -(w * entScale), h * entScale,
-							null);
+					Main.g.drawImage(image, x - GameState.camera.x + (w * entScale), y - GameState.camera.y,
+							-(w * entScale), h * entScale, null);
 				}
 
 			} else {

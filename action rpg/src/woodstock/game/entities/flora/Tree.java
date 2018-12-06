@@ -12,6 +12,7 @@ public class Tree extends Entity {
 
 	public Tree(Level level, int x, int y, int type) {
 		super(level, x, y, Assets.getTree(type));
+		isSolid = true;
 	}
 
 	@Override
