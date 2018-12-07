@@ -1,6 +1,7 @@
 package woodstock.game.entities;
 
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
 import woodstock.game.GameState;
