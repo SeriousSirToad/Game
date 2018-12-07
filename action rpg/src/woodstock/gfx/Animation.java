@@ -8,9 +8,9 @@ public class Animation {
 	public int frameSkip;
 	private int frameIndex;
 
-	public Animation(int i, int j, BufferedImage[] images) {
+	public Animation(int j, BufferedImage[] images) {
 
-		frames = new BufferedImage[i];
+		frames = new BufferedImage[images.length];
 		this.frameSkip = j;
 
 		frames = images;

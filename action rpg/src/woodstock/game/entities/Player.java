@@ -12,7 +12,7 @@ public class Player extends Mob{
 	InputHandler input = Main.input;
 
 	public Player(Level level, int x, int y) {
-		super(level, x, y, Assets.player, Assets.pl_hz);
+		super(level, x, y, Assets.player, Assets.pl_hz, Assets.pl_u, Assets.pl_dn);
 		collider = new Rectangle((x + 4) * entScale, (y + 24) * entScale, 7 * entScale, 8 * entScale);
 	}
 

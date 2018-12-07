@@ -13,18 +13,18 @@ import woodstock.game.GameState;
 import woodstock.game.Main;
 import woodstock.game.entities.Entity;
 
-public class Level {
+public abstract class Level {
 
-	public static final Level test = new lvl_test();
 	public static final int levelScale = (int) (4 * Main.SCALE);
 
 	public BufferedImage image;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
-	public ArrayList<Rectangle> colliders = new ArrayList<>();
+	public ArrayList<Rectangle> colliders = new ArrayList<Rectangle>();
 
-	private int width = 0;
-	private int height = 0;
-	
+	public static Level test = new lvl_test();
+	protected int width = 0;
+	protected int height = 0;
+
 	private Comparator<Entity> entitySorter = new Comparator<Entity>() {
 
 		@Override
@@ -59,8 +59,10 @@ public class Level {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		init();
 	}
+
+	public abstract void init();
 
 	public int getWidth() {
 		return width * levelScale;

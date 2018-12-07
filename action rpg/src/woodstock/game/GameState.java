@@ -1,7 +1,7 @@
 package woodstock.game;
 
 import woodstock.game.entities.Player;
-import woodstock.game.level.Level;
+import woodstock.game.level.*;
 import woodstock.gfx.Camera;
 
 public class GameState {

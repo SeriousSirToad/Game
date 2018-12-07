@@ -1,6 +1,5 @@
 package woodstock.game.entities;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -14,20 +13,25 @@ public abstract class Mob extends Entity {
 	public int speed = 2;
 	protected boolean moving = false;
 	protected Animation hz;
+	protected Animation up;
+	protected Animation dn;
 	protected int movingDir = 0;
 
-	public Mob(Level level, int x, int y, BufferedImage image, Animation hz) {
+	public Mob(Level level, int x, int y, BufferedImage image, Animation hz, Animation up, Animation dn) {
 		super(level, x, y, image);
 		this.hz = hz;
+		this.up = up;
+		this.dn = dn;
 		isMob = true;
-		
 	}
 
 	public void tick() {
-		if(!initialized)
+		if (!initialized)
 			init();
 		if (moving) {
 			hz.update();
+			up.update();
+			dn.update();
 		}
 		update();
 	}
@@ -38,7 +42,7 @@ public abstract class Mob extends Entity {
 	public void move(int xa, int ya) {
 
 		for (Rectangle r : level.colliders) {
-			
+
 			if (xa != 0 && ya != 0) {
 				if (!hasCollided(0, ya, r)) {
 					move(0, ya);
@@ -78,7 +82,7 @@ public abstract class Mob extends Entity {
 
 	public boolean hasCollided(int xa, int ya, Rectangle other) {
 
-		Rectangle temp = new Rectangle(collider.x + xa, collider.y + ya, w, h);
+		Rectangle temp = new Rectangle(collider.x + xa, collider.y + ya, collider.width, collider.height);
 
 		if (temp.intersects(other)) {
 			return true;
@@ -88,29 +92,27 @@ public abstract class Mob extends Entity {
 	}
 
 	public void render() {
-		for(Rectangle r : level.colliders){
-			Main.g.setColor(Color.blue);
-			Main.g.fill(r);
-			Main.g.draw(collider);
-		}
 		if (GameState.camera.contains(this)) {
 			if (!moving) {
-				if (movingDir != 0) {
-					Main.g.drawImage(image, x - GameState.camera.x, y
-							- GameState.camera.y, w, h, null);
+				if (movingDir == 2) {
+					Main.g.drawImage(image, x - GameState.camera.x, y - GameState.camera.y, w, h, null);
+				} else if (movingDir == 0) {
+					Main.g.drawImage(image, x - GameState.camera.x + (w), y - GameState.camera.y, -(w), h, null);
+				} else if (movingDir == 3) {
+					Main.g.drawImage(up.frames[0], x - GameState.camera.x, y - GameState.camera.y, w, h, null);
 				} else {
-					Main.g.drawImage(image, x - GameState.camera.x + (w), y
-							- GameState.camera.y, -(w), h, null);
+					Main.g.drawImage(dn.frames[0], x - GameState.camera.x, y - GameState.camera.y, w, h, null);
 				}
 
 			} else {
-				if (movingDir != 0) {
-					Main.g.drawImage(hz.animate(), x - GameState.camera.x, y
-							- GameState.camera.y, (w), h, null);
+				if (movingDir == 2) {
+					Main.g.drawImage(hz.animate(), x - GameState.camera.x, y - GameState.camera.y, (w), h, null);
+				} else if (movingDir == 0) {
+					Main.g.drawImage(hz.animate(), x - GameState.camera.x + (w), y - GameState.camera.y, -(w), h, null);
+				} else if (movingDir == 3) {
+					Main.g.drawImage(up.animate(), x - GameState.camera.x, y - GameState.camera.y, w, h, null);
 				} else {
-					Main.g.drawImage(hz.animate(),
-							x - GameState.camera.x + (w), y
-									- GameState.camera.y, -(w), h, null);
+					Main.g.drawImage(dn.animate(), x - GameState.camera.x, y - GameState.camera.y, w, h, null);
 				}
 			}
 		}
