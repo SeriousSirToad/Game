@@ -1,5 +1,6 @@
 package woodstock.game.level;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import woodstock.game.entities.Player;
@@ -16,10 +17,8 @@ public class lvl_test extends Level {
 	public void init() {
 		player = new Player(this, 0, 0);
 		new Tree(this, 500, 0, 1);
-		colliders.add(new Rectangle(8 * levelScale, 36 * levelScale, 96 * levelScale, 44 * levelScale));
-		for(int i = 0; i < colliders.size(); i++) {
-			System.out.println("ur bean");
-		}
+		colliders.add(new Rectangle(8 * levelScale, 36 * levelScale,
+				96 * levelScale, 44 * levelScale));
 	}
 
 }

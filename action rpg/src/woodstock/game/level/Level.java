@@ -1,5 +1,6 @@
 package woodstock.game.level;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,11 +17,14 @@ import woodstock.game.entities.Entity;
 public abstract class Level {
 
 	public static final int levelScale = (int) (4 * Main.SCALE);
+	public boolean initialized = false;
 
 	public BufferedImage image;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Rectangle> colliders = new ArrayList<Rectangle>();
+	public ArrayList<Door> doors = new ArrayList<Door>();
 
+	public static Level bean = new lvl_bean();
 	public static Level test = new lvl_test();
 	protected int width = 0;
 	protected int height = 0;
@@ -36,19 +40,27 @@ public abstract class Level {
 	};
 
 	public void tick() {
-		for (Entity e : entities) {
+		for (Door d : doors) {
+			d.tick();
+		}
+		for (int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i);
 			e.tick();
 		}
-		entities.sort(entitySorter);
+		if(!initialized){
+			init();
+			initialized = true;
+		}
 	}
 
 	public void render() {
-		Main.g.drawImage(image, 0 - GameState.camera.x, 0 - GameState.camera.y, getWidth(), getHeight(), null);
-
+		Main.g.drawImage(image, -GameState.camera.x, -GameState.camera.y,
+				getWidth(), getHeight(), null);
+		entities.sort(entitySorter);
 		for (Entity e : entities) {
 			e.render();
 		}
-
+		Main.g.dispose();
 	}
 
 	public Level(String imagePath) {
@@ -59,7 +71,6 @@ public abstract class Level {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		init();
 	}
 
 	public abstract void init();

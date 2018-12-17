@@ -84,7 +84,7 @@ public abstract class Mob extends Entity {
 	public boolean hasCollided(int xa, int ya, Rectangle other) {
 
 		Rectangle temp = new Rectangle(collider.x + xa, collider.y + ya, collider.width, collider.height);
-
+		
 		if (temp.intersects(other)) {
 			return true;
 		}
@@ -116,6 +116,7 @@ public abstract class Mob extends Entity {
 					Main.g.drawImage(dn.animate(), x - GameState.camera.x, y - GameState.camera.y, w, h, null);
 				}
 			}
+			
 		}
 	}
 

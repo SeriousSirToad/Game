@@ -50,6 +50,8 @@ public abstract class Entity {
 	}
 
 	public void setLevel(Level level) {
+		this.level.entities.remove(this);
+		level.entities.add(this);
 		this.level = level;
 	}
 	

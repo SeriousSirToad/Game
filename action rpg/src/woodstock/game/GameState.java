@@ -6,8 +6,13 @@ import woodstock.gfx.Camera;
 
 public class GameState {
 
-	public static Level currentLevel = Level.test;
-	public static Player player = (Player) Level.test.entities.get(0);
-	public static Camera camera = new Camera(0, 0, player);
+	public static Player player;
+	public static Camera camera;
+	
+	public static void init(){
+		Level.test.tick();
+		player = (Player) Level.test.entities.get(0);
+		camera = new Camera(0, 0, player);
+	}
 
 }

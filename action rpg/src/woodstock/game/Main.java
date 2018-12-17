@@ -18,7 +18,8 @@ public class Main extends Canvas implements Runnable {
 
 	public int tickCount;
 
-	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment()
+			.getScreenDevices()[0];
 
 	public static int WIDTH = 1280;
 	public static int HEIGHT = 720;
@@ -27,7 +28,8 @@ public class Main extends Canvas implements Runnable {
 
 	public boolean running = false;
 	public JFrame frame = new JFrame();
-	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE), (int) (HEIGHT * SCALE));
+	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE),
+			(int) (HEIGHT * SCALE));
 	public static InputHandler input;
 
 	public Main() {
@@ -66,6 +68,10 @@ public class Main extends Canvas implements Runnable {
 		double delta2 = 0;
 
 		while (running) {
+			if (!stateInit) {
+				stateInit = true;
+				GameState.init();
+			}
 			long now = System.nanoTime();
 			double renderTime = 1000000000D / 60;
 			delta += (now - lastTime) / nsPerTick;
@@ -104,11 +110,13 @@ public class Main extends Canvas implements Runnable {
 		}
 	}
 
+	boolean stateInit = false;
+
 	public void tick() {
 
 		tickCount++;
 
-		GameState.currentLevel.tick();
+		GameState.player.getLevel().tick();
 		GameState.camera.tick();
 
 	}
