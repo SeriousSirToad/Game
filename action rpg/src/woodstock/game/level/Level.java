@@ -20,6 +20,7 @@ public abstract class Level {
 	public boolean initialized = false;
 
 	public BufferedImage image;
+	public int season = 0; //0 is winter, 1 is spring, 2 = summer, 3 = fall
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Rectangle> colliders = new ArrayList<Rectangle>();
 	public ArrayList<Door> doors = new ArrayList<Door>();

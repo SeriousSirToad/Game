@@ -29,8 +29,7 @@ public class Camera {
 	public void render() {
 		if (level != null)
 			level.render();
-		Main.g.drawString(entity.x + ", " + entity.y, entity.x - x, entity.y
-				- y);
+		Main.g.drawString(entity.x + ", " + entity.y, entity.x - x, entity.y - y);
 	}
 
 	public void tick() {

@@ -54,9 +54,9 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public Key D = new Key();
 	public Key esc = new Key();
 	public Key space = new Key();
-	public Key k1 = new Key();
-	public Key k2 = new Key();
-	public Key k3 = new Key();
+	public Key NUM_1 = new Key();
+	public Key NUM_2 = new Key();
+	public Key NUM_3 = new Key();
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -93,19 +93,19 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
 		if (e.getKeyCode() == KeyEvent.VK_1) {
 
-			k1.toggle(true);
+			NUM_1.toggle(true);
 
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_2) {
 
-			k2.toggle(true);
+			NUM_2.toggle(true);
 
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_3) {
 
-			k3.toggle(true);
+			NUM_3.toggle(true);
 
 		}
 
@@ -200,19 +200,19 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
 		if (e.getKeyCode() == KeyEvent.VK_1) {
 
-			k1.toggle(false);
+			NUM_1.toggle(false);
 
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_2) {
 
-			k2.toggle(false);
+			NUM_2.toggle(false);
 
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_3) {
 
-			k3.toggle(false);
+			NUM_3.toggle(false);
 
 		}
 

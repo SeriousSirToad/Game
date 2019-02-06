@@ -12,12 +12,19 @@ public class Tree extends Entity {
 
 	public Tree(Level level, int x, int y, int type) {
 		super(level, x, y, Assets.getTree(type));
+		this.type = type;
 		isSolid = true;
 	}
 
 	@Override
 	public void update() {
 		return;
+	}
+	
+	public void generateHitbox() {
+		if(type == 0) {
+			
+		}
 	}
 
 }

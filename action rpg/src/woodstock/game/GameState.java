@@ -8,6 +8,7 @@ public class GameState {
 
 	public static Player player;
 	public static Camera camera;
+	public static int levelSeason = 0;
 	
 	public static void init(){
 		Level.test.tick();

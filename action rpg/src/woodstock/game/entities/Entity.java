@@ -27,7 +27,7 @@ public abstract class Entity {
 		level.entities.add(this);
 		w = image.getWidth() * entScale;
 		h = image.getHeight() * entScale;
-		collider = new Rectangle(x, y + (h / 2), w, h / 2);
+		collider = new Rectangle(x, y + 3 * (h / 4), w, h / 4);
 	}
 
 	public void tick() {

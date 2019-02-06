@@ -30,5 +30,9 @@ public class Building extends Entity{
 			}
 		}
 	}
+	
+	public void generateInterior() {
+		
+	}
 
 }
