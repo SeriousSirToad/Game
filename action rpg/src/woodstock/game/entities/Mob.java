@@ -11,7 +11,7 @@ import woodstock.gfx.Animation;
 
 public abstract class Mob extends Entity {
 
-	public int speed = 2;
+	public int speed = (int) (2 * GameState.renderint);
 	protected boolean moving = false;
 	protected Animation hz;
 	protected Animation up;
@@ -78,13 +78,30 @@ public abstract class Mob extends Entity {
 		y += ya;
 		collider.x += xa;
 		collider.y += ya;
+		
+		if (x < 0) {
+			x += speed;
+			collider.x += speed;
+		}
+		if (x + w > level.getWidth()) {
+			x -= speed;
+			collider.x -= speed;
+		}
+		if (y < 0) {
+			y += speed;
+			collider.y += speed;
+		}
+		if (y + h > level.getHeight()) {
+			y -= speed;
+			collider.y -= speed;
+		}
 
 	}
 
 	public boolean hasCollided(int xa, int ya, Rectangle other) {
 
 		Rectangle temp = new Rectangle(collider.x + xa, collider.y + ya, collider.width, collider.height);
-		
+
 		if (temp.intersects(other)) {
 			return true;
 		}
@@ -116,7 +133,7 @@ public abstract class Mob extends Entity {
 					Main.g.drawImage(dn.animate(), x - GameState.camera.x, y - GameState.camera.y, w, h, null);
 				}
 			}
-			
+
 		}
 	}
 

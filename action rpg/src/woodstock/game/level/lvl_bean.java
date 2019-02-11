@@ -2,6 +2,8 @@ package woodstock.game.level;
 
 import java.awt.Rectangle;
 
+import woodstock.game.entities.Player;
+import woodstock.game.entities.buildings.Shop;
 import woodstock.game.entities.flora.Tree;
 
 public class lvl_bean extends Level {
@@ -11,8 +13,8 @@ public class lvl_bean extends Level {
 	}
 
 	public void init() {
-		colliders.add(new Rectangle(1, 1, 10 * levelScale, 10 * levelScale));
-		new Tree(this, 500, 0, 1);
+		player = new Player(this, 0, 0);
+		new Shop(this, 51, 0);
 	}
 
 }

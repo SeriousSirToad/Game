@@ -30,7 +30,6 @@ public class SpriteSheet {
 		for(int i = 0; i < numFrames; i++) {
 			
 			frames[i] = sheet.getSubimage(startX + (i * cellW), startY, cellW, cellH);
-			System.out.println(startX + (i * cellW));
 			
 		}
 		

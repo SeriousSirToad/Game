@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import woodstock.game.GameState;
-import woodstock.game.entities.Entity;
 import woodstock.game.entities.Player;
 
 public class Door {
@@ -24,13 +23,16 @@ public class Door {
 	}
 
 	public void tick() {
+		if(!GameState.camera.contains(rect.x, rect.y)) {
+			return;
+		}
 		Player player = GameState.player;
 		if (rect.intersects(player.collider)) {
 			player.setLevel(level);
 			player.x = (int) tpLocation.getX();
 			player.y = (int) tpLocation.getY();
-			player.collider = new Rectangle(((int) tpLocation.getX() + (4 * Entity.entScale)),
-					((int) tpLocation.getY() + (24 * Entity.entScale)), 7 * Entity.entScale, 8 * Entity.entScale);
+			player.collider = new Rectangle(((int) tpLocation.getX() + (4 * GameState.renderScale)),
+					((int) tpLocation.getY() + (24 * GameState.renderScale)), 7 * GameState.renderScale, 8 * GameState.renderScale);
 		}
 	}
 

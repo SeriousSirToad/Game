@@ -1,6 +1,5 @@
 package woodstock.game.level;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,12 +12,12 @@ import javax.imageio.ImageIO;
 import woodstock.game.GameState;
 import woodstock.game.Main;
 import woodstock.game.entities.Entity;
+import woodstock.game.entities.Player;
 
 public abstract class Level {
 
-	public static final int levelScale = (int) (4 * Main.SCALE);
 	public boolean initialized = false;
-
+	public Player player;
 	public BufferedImage image;
 	public int season = 0; //0 is winter, 1 is spring, 2 = summer, 3 = fall
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -77,11 +76,11 @@ public abstract class Level {
 	public abstract void init();
 
 	public int getWidth() {
-		return width * levelScale;
+		return width * GameState.renderScale;
 	}
 
 	public int getHeight() {
-		return height * levelScale;
+		return height * GameState.renderScale;
 	}
 
 }

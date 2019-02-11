@@ -22,8 +22,14 @@ public class Assets {
 		}
 	}
 
+	//Decor
+	public static final BufferedImage counter = entities.getImage(0, 160, 32, 32);
+	
 	//Buildings
-	public static final BufferedImage bldg_00 = buildings.getImage(0, 0, 96, 80);
+	public static final BufferedImage shop = buildings.getImage(0, 0, 96, 80);
+	public static final BufferedImage pharmacy = buildings.getImage(96, 0, 96, 80);
+	public static final BufferedImage popostation = buildings.getImage(192, 0, 96, 80);
+	public static final BufferedImage cabin = buildings.getImage(288, 0, 96, 80);
 	
 	// Misc
 	public static final BufferedImage bean = entities.getImage(0, 240, 16, 16);

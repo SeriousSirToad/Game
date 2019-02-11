@@ -18,25 +18,24 @@ public class Main extends Canvas implements Runnable {
 
 	public int tickCount;
 
-	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment()
-			.getScreenDevices()[0];
+	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 
-	public static int WIDTH = 1280;
-	public static int HEIGHT = 720;
-	public static double SCALE = 1;
-	private static final String NAME = "SnowFall";
+	public static int WIDTH = 320;
+	public static int HEIGHT = 180;
+	public static double SCALE = 4;
+	private static final String NAME = "TrainEngine";
 
 	public boolean running = false;
 	public JFrame frame = new JFrame();
-	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE),
-			(int) (HEIGHT * SCALE));
+	static Dimension gameDimension;
 	public static InputHandler input;
 
 	public Main() {
 
 		WIDTH *= SCALE;
 		HEIGHT *= SCALE;
-
+		
+		gameDimension = new Dimension((int) (WIDTH + 6), (int) (HEIGHT + 29));
 		frame.setTitle(NAME);
 		frame.setSize(gameDimension);
 		frame.setPreferredSize(gameDimension);
@@ -47,6 +46,9 @@ public class Main extends Canvas implements Runnable {
 		frame.setUndecorated(false);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+		frame.pack();
+
+		System.out.println(frame.getInsets().top + ", " + frame.getInsets().bottom);
 
 		input = new InputHandler(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,7 +134,7 @@ public class Main extends Canvas implements Runnable {
 		// Creating graphics object
 		bs = getBufferStrategy();
 		if (bs == null) {
-			createBufferStrategy(3);
+			createBufferStrategy(2);
 			return;
 		}
 
