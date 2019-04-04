@@ -19,13 +19,13 @@ public abstract class Entity {
 	protected boolean initialized;
 
 	public Entity(Level level, int x, int y, BufferedImage image) {
-		this.x = x * GameState.renderScale;
-		this.y = y * GameState.renderScale;
+		this.x = x;
+		this.y = y;
 		this.image = image;
 		this.level = level;
 		level.entities.add(this);
-		w = image.getWidth() * GameState.renderScale;
-		h = image.getHeight() * GameState.renderScale;
+		w = image.getWidth();
+		h = image.getHeight();
 		collider = new Rectangle(x, y + 3 * (h / 4), w, h / 4);
 	}
 
@@ -39,7 +39,9 @@ public abstract class Entity {
 
 	public void render() {
 		if (GameState.camera.contains(this)) {
-			Main.g.drawImage(image, x - GameState.camera.x, y - GameState.camera.y, w, h, null);
+			Main.g.drawImage(image, x - GameState.camera.x * GameState.renderScale,
+					y - GameState.camera.y * GameState.renderScale, w * GameState.renderScale,
+					h * GameState.renderScale, null);
 		}
 	}
 
@@ -62,8 +64,7 @@ public abstract class Entity {
 	}
 
 	public void makeCollider(int x, int y, int w, int h) {
-		collider = new Rectangle(this.x + (x * GameState.renderScale), this.y + (y * GameState.renderScale),
-				w * GameState.renderScale, h * GameState.renderScale);
+		collider = new Rectangle(this.x + x, this.y + y, w, h);
 	}
 
 }

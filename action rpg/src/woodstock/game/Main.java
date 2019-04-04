@@ -2,6 +2,7 @@ package woodstock.game;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
@@ -9,6 +10,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import woodstock.io.InputHandler;
 
@@ -20,6 +22,8 @@ public class Main extends Canvas implements Runnable {
 
 	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 
+	public static Main main;
+
 	public static int WIDTH = 320;
 	public static int HEIGHT = 180;
 	public static double SCALE = 4;
@@ -29,13 +33,18 @@ public class Main extends Canvas implements Runnable {
 	public JFrame frame = new JFrame();
 	static Dimension gameDimension;
 	public static InputHandler input;
+	Container con;
+
+	Menu menu;
 
 	public Main() {
 
-		WIDTH *= SCALE;
-		HEIGHT *= SCALE;
-		
-		gameDimension = new Dimension((int) (WIDTH + 6), (int) (HEIGHT + 29));
+		WIDTH += 6;
+		HEIGHT += 29;
+
+		main = this;
+
+		gameDimension = new Dimension((int) (WIDTH * SCALE), (int) (HEIGHT * SCALE));
 		frame.setTitle(NAME);
 		frame.setSize(gameDimension);
 		frame.setPreferredSize(gameDimension);
@@ -54,6 +63,12 @@ public class Main extends Canvas implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		System.out.println(WIDTH + ", " + HEIGHT);
+		// SwingUtilities.invokeLater(this);
+
+		// frame.setLayout(null);
+		// con = frame.getContentPane();
+
+		menu = new Menu();
 
 	}
 
@@ -140,7 +155,8 @@ public class Main extends Canvas implements Runnable {
 
 		g = (Graphics2D) bs.getDrawGraphics();
 		// General Rendering
-		g.clearRect(0, 0, (WIDTH), (HEIGHT));
+
+		g.clearRect(0, 0, width(), width());
 
 		GameState.camera.render();
 
@@ -154,6 +170,14 @@ public class Main extends Canvas implements Runnable {
 		running = true;
 		new Thread(this).start();
 
+	}
+
+	public static int width() {
+		return (int) (WIDTH * SCALE);
+	}
+
+	public static int height() {
+		return (int) (HEIGHT * SCALE);
 	}
 
 	public static int scale(int num) {

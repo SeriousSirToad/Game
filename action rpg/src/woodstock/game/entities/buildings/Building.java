@@ -20,8 +20,7 @@ public class Building extends Entity {
 	public Building(Level level, int x, int y, BufferedImage image, Level interior) {
 		super(level, x, y, image);
 		this.isSolid = true;
-		collider = new Rectangle(x * GameState.renderScale, h - (33 * GameState.renderScale),
-				96 * GameState.renderScale, 33 * GameState.renderScale);
+		collider = new Rectangle(x, h - (33), 96, 33);
 		renderBounds = new Rectangle(this.x, this.y, w, h);
 		this.interior = interior;
 	}
@@ -37,17 +36,17 @@ public class Building extends Entity {
 
 	public void render() {
 		if (GameState.camera.contains(this) && !renderBounds.contains(GameState.player.collider)) {
-			Main.g.drawImage(image, x - GameState.camera.x, y - GameState.camera.y, w, h, null);
+			Main.g.drawImage(image, (x * GameState.renderScale) - GameState.camera.x,
+					(y * GameState.renderScale) - GameState.camera.y, w * GameState.renderScale,
+					h * GameState.renderScale, null);
 		}
 	}
 
 	protected void makeStandardDoor(int x, int y) {
-		Rectangle doorRect = new Rectangle(this.x + (x * GameState.renderScale), this.h - (y * GameState.renderScale),
-				32 * GameState.renderScale, 1);
-		Rectangle door2 = new Rectangle(64 * GameState.renderScale, 112 * GameState.renderScale,
-				32 * GameState.renderScale, 8 * GameState.renderScale);
-		door = new Door(level, doorRect, interior, new Point(64 * GameState.renderScale, 79 * GameState.renderScale));
-		new Door(interior, door2, level, new Point(this.x + (x * GameState.renderScale), this.h - (y * GameState.renderScale)));
+		Rectangle doorRect = new Rectangle(this.x + x, this.h - y, 32, 1);
+		Rectangle door2 = new Rectangle(64, 112, 32, 8);
+		door = new Door(level, doorRect, interior, new Point(64, 79));
+		new Door(interior, door2, level, new Point(this.x + x, this.h - y));
 	}
 
 }

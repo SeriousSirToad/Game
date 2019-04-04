@@ -23,7 +23,7 @@ public class Door {
 	}
 
 	public void tick() {
-		if(!GameState.camera.contains(rect.x, rect.y)) {
+		if (!GameState.camera.contains(rect.x, rect.y)) {
 			return;
 		}
 		Player player = GameState.player;
@@ -31,8 +31,7 @@ public class Door {
 			player.setLevel(level);
 			player.x = (int) tpLocation.getX();
 			player.y = (int) tpLocation.getY();
-			player.collider = new Rectangle(((int) tpLocation.getX() + (4 * GameState.renderScale)),
-					((int) tpLocation.getY() + (24 * GameState.renderScale)), 7 * GameState.renderScale, 8 * GameState.renderScale);
+			player.collider = new Rectangle((int) tpLocation.getX() + 4, (int) tpLocation.getY() + 24, 7, 8);
 		}
 	}
 

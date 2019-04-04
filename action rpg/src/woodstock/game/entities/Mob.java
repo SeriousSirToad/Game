@@ -11,7 +11,7 @@ import woodstock.gfx.Animation;
 
 public abstract class Mob extends Entity {
 
-	public int speed = (int) (2 * GameState.renderint);
+	public int speed = 1;
 	protected boolean moving = false;
 	protected Animation hz;
 	protected Animation up;
@@ -110,6 +110,10 @@ public abstract class Mob extends Entity {
 	}
 
 	public void render() {
+		int x = this.x * GameState.renderScale;
+		int y = this.y * GameState.renderScale;
+		int w = this.w * GameState.renderScale;
+		int h = this.h * GameState.renderScale;
 		if (GameState.camera.contains(this)) {
 			if (!moving) {
 				if (movingDir == 2) {

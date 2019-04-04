@@ -19,7 +19,7 @@ public abstract class Level {
 	public boolean initialized = false;
 	public Player player;
 	public BufferedImage image;
-	public int season = 0; //0 is winter, 1 is spring, 2 = summer, 3 = fall
+	public int season = 0; // 0 is winter, 1 is spring, 2 = summer, 3 = fall
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Rectangle> colliders = new ArrayList<Rectangle>();
 	public ArrayList<Door> doors = new ArrayList<Door>();
@@ -47,15 +47,14 @@ public abstract class Level {
 			Entity e = entities.get(i);
 			e.tick();
 		}
-		if(!initialized){
+		if (!initialized) {
 			init();
 			initialized = true;
 		}
 	}
 
 	public void render() {
-		Main.g.drawImage(image, -GameState.camera.x, -GameState.camera.y,
-				getWidth(), getHeight(), null);
+		Main.g.drawImage(image, -GameState.camera.x, -GameState.camera.y, getWidth(), getHeight(), null);
 		entities.sort(entitySorter);
 		for (Entity e : entities) {
 			e.render();

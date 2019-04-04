@@ -16,25 +16,25 @@ public class Camera {
 
 	public Camera(int x, int y, Mob attatchedEntity) {
 
-		this.x = x;
-		this.y = y;
+		this.x = 0;
+		this.y = 0;
 		this.entity = attatchedEntity;
 		this.level = entity.getLevel();
 
 	}
 
 	public Camera(int x, int y, Level level) {
-		this.x = x;
-		this.y = y;
+		this.x = 0;
+		this.y = 0;
 		this.level = level;
 	}
 
 	public void render() {
 		Main.g.setColor(Color.black);
-		Main.g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
+		Main.g.fillRect(0, 0, Main.width(), Main.height());
 		if (level != null)
 			level.render();
-		Main.g.drawString(entity.x + ", " + entity.y, entity.x - x, entity.y - y);
+
 	}
 
 	public void tick() {
@@ -43,43 +43,38 @@ public class Camera {
 		}
 		if (entity != null && level != null) {
 			followEntity();
+			// System.out.println("what the \rheck\r");
+		} else {
+			// System.out.println("what the \rheck\r");
 		}
-		if (level.getWidth() <= Main.WIDTH) {
-			this.x = (level.getWidth() / 2) - Main.WIDTH / 2;
+
+		if (level.getWidth() <= Main.width()) {
+			this.x = (level.getWidth() / 2) - Main.width() / 2;
 		}
-		if (level.getHeight() <= Main.HEIGHT) {
-			this.y = (level.getHeight() / 2) - Main.HEIGHT / 2;
+		if (level.getHeight() <= Main.height()) {
+			this.y = (level.getHeight() / 2) - Main.height() / 2;
 		}
 	}
 
 	public void followEntity() {
 
-		if (x > 0) {
-			if (x + (Main.WIDTH / 2) > entity.x + (entity.w / 2)) {
-				move(x - entity.speed, y);
-			}
+		int entx = entity.x * GameState.renderScale;
+		int enty = entity.y * GameState.renderScale;
+		int entw = entity.w * GameState.renderScale;
+		int enth = entity.h * GameState.renderScale;
 
-		}
-		if (x + Main.WIDTH < entity.getLevel().getWidth()) {
-			if (x + (Main.WIDTH / 2) < entity.x + (entity.w / 2)) {
-				move(x + entity.speed, y);
-			}
-		}
-		if (y > 0) {
-			if (y + (Main.HEIGHT / 2) > entity.y + (entity.h / 2)) {
-				move(x, y - entity.speed);
-			}
-		}
-		if (y + Main.HEIGHT < entity.getLevel().getHeight()) {
-			if (y + (Main.HEIGHT / 2) < entity.y + (entity.h / 2)) {
-				move(x, y + entity.speed);
-			}
-		}
+		if (x > -1 && entx > (Main.width() / 2) - (entw / 2))
+			x = (entx - (Main.width() / 2) + entw / 2);
+		else
+			x = 0;
 
+		if (y > -1 && enty > (Main.height() / 2) - (enth / 2))
+			y = enty - (Main.height() / 2) + enth / 2;
+		else
+			y = 0;
 	}
 
 	public void move(int x, int y) {
-
 		this.x = x;
 		this.y = y;
 	}
@@ -87,13 +82,17 @@ public class Camera {
 	public boolean contains(int x, int y) {
 		if (x < this.x || y < this.y)
 			return false;
-		if (x > this.x + Main.WIDTH || y > this.y + Main.WIDTH)
+		if (x > this.x + Main.width() || y > this.y + Main.height())
 			return false;
 		return true;
 	}
 
 	public boolean contains(Entity e) {
-		if (e.x + (e.w * GameState.renderScale) < x || e.y + e.h < y) {
+		int ex = e.x * GameState.renderScale;
+		int ey = e.y * GameState.renderScale;
+		int ew = e.w * GameState.renderScale;
+		int eh = e.h * GameState.renderScale;
+		if (ex + ew < x  || ey + eh < y ) {
 			return false;
 		}
 		return true;
