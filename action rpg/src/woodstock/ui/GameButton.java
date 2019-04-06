@@ -13,23 +13,27 @@ public class GameButton {
 
 	private Rectangle buttonRect;
 
+	private String text;
+	
 	public boolean hasBeenClicked = false;
-
-	// private boolean canClick = true;
 	public boolean attatchedToEntity = false;
 	protected boolean onThis = false;
+	
 	public Color color;
 	public int numTimesClicked;
-	public int x, y, width, height;
+	
+	public int x, y, width = 32, height = 16;
+	
 	protected InputHandler input;
+	
 	public BufferedImage buttonImage;
 
 	public GameButton(int x, int y, BufferedImage image) {
 
 		this.x = x;
 		this.y = y;
-		this.width = GameState.renderScale * width;
-		this.height = GameState.renderScale * height;
+		this.width = image.getWidth();
+		this.height = image.getWidth();
 
 		input = Main.input;
 
@@ -42,6 +46,20 @@ public class GameButton {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+
+		buttonRect = new Rectangle(x, y, width, height);
+	}
+
+	public GameButton(int x, int y) {
+		this.x = x;
+		this.y = y;
+
+		buttonRect = new Rectangle(x, y, width, height);
+	}
+	
+	public GameButton(int x, int y, String text) {
+		this.x = x;
+		this.y = y;
 
 		buttonRect = new Rectangle(x, y, width, height);
 	}
@@ -75,6 +93,11 @@ public class GameButton {
 	public void render() {
 		Graphics g = Main.g;
 		g.setColor(kindaTransparent);
+		
+		if(text != null) {
+			g.drawString(text, x * GameState.renderScale, y * GameState.renderScale);
+		}
+		
 		if (onThis) {
 			g.fillRect(x * GameState.renderScale, y * GameState.renderScale, width * GameState.renderScale,
 					height * GameState.renderScale);
