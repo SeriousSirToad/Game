@@ -39,9 +39,7 @@ public abstract class Entity {
 
 	public void render() {
 		if (GameState.camera.contains(this)) {
-			Main.g.drawImage(image, x - GameState.camera.x * GameState.renderScale,
-					y - GameState.camera.y * GameState.renderScale, w * GameState.renderScale,
-					h * GameState.renderScale, null);
+			Main.g.drawImage(image, x - GameState.camera.x, y - GameState.camera.y, w, h, null);
 		}
 	}
 

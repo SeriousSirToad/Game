@@ -1,5 +1,6 @@
 package woodstock.game.level;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -54,12 +55,12 @@ public abstract class Level {
 	}
 
 	public void render() {
-		Main.g.drawImage(image, -GameState.camera.x, -GameState.camera.y, getWidth(), getHeight(), null);
+		Graphics g = Main.g;
+		g.drawImage(image, 0 - GameState.camera.x, 0 - GameState.camera.y, width, height, null);
 		entities.sort(entitySorter);
 		for (Entity e : entities) {
 			e.render();
 		}
-		Main.g.dispose();
 	}
 
 	public Level(String imagePath) {
@@ -75,11 +76,11 @@ public abstract class Level {
 	public abstract void init();
 
 	public int getWidth() {
-		return width * GameState.renderScale;
+		return (int) (width * GameState.renderScale);
 	}
 
 	public int getHeight() {
-		return height * GameState.renderScale;
+		return (int) (height * GameState.renderScale);
 	}
 
 }

@@ -24,9 +24,8 @@ public class Main extends Canvas implements Runnable {
 
 	public static Main main;
 
-	public static int WIDTH = 320;
-	public static int HEIGHT = 180;
-	public static double SCALE = 4;
+	public static int WIDTH = 800;
+	public static int HEIGHT = 600;
 	private static final String NAME = "TrainEngine";
 
 	public boolean running = false;
@@ -35,16 +34,13 @@ public class Main extends Canvas implements Runnable {
 	public static InputHandler input;
 	Container con;
 
-	Menu menu;
+	public static Menu menu;
 
 	public Main() {
 
-		WIDTH += 6;
-		HEIGHT += 29;
-
 		main = this;
 
-		gameDimension = new Dimension((int) (WIDTH * SCALE), (int) (HEIGHT * SCALE));
+		gameDimension = new Dimension((int) (WIDTH), (int) (HEIGHT));
 		frame.setTitle(NAME);
 		frame.setSize(gameDimension);
 		frame.setPreferredSize(gameDimension);
@@ -133,8 +129,12 @@ public class Main extends Canvas implements Runnable {
 
 		tickCount++;
 
-		GameState.player.getLevel().tick();
-		GameState.camera.tick();
+		if (GameState.running) {
+			GameState.player.getLevel().tick();
+			GameState.camera.tick();
+		} else {
+			menu.tick();
+		}
 
 	}
 
@@ -149,7 +149,7 @@ public class Main extends Canvas implements Runnable {
 		// Creating graphics object
 		bs = getBufferStrategy();
 		if (bs == null) {
-			createBufferStrategy(2);
+			createBufferStrategy(3);
 			return;
 		}
 
@@ -158,6 +158,7 @@ public class Main extends Canvas implements Runnable {
 
 		g.clearRect(0, 0, width(), width());
 
+		g.scale(GameState.renderScale, GameState.renderScale);
 		GameState.camera.render();
 
 		bs.show();
@@ -173,15 +174,11 @@ public class Main extends Canvas implements Runnable {
 	}
 
 	public static int width() {
-		return (int) (WIDTH * SCALE);
+		return (int) (WIDTH);
 	}
 
 	public static int height() {
-		return (int) (HEIGHT * SCALE);
-	}
-
-	public static int scale(int num) {
-		return (int) (num * SCALE);
+		return (int) (HEIGHT);
 	}
 
 	public static void main(String[] args) {

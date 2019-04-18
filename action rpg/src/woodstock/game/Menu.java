@@ -1,5 +1,6 @@
 package woodstock.game;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -13,9 +14,12 @@ import woodstock.ui.GameButton;
 public class Menu {
 
 	private BufferedImage menuImage;
-	public boolean playing = false;
 	Font font = new Font("Comic sans ms", Font.BOLD, 10);
-	GameButton start = new GameButton(149, 45, 112, 16);
+	GameButton start = new GameButton(91, 35, 70, 13) {
+		public void onClick() {
+			GameState.running = true;
+		}
+	};
 
 	public Menu() {
 		try {
@@ -23,12 +27,17 @@ public class Menu {
 		} catch (IOException e) {
 			System.out.println("nigga moment");
 		}
+		start.setColor(Color.GREEN);
+	}
+
+	public void tick() {
+		start.tick();
 	}
 
 	public void render() {
 		Graphics g = Main.g;
-		g.drawImage(menuImage, 0, 0, menuImage.getWidth() * GameState.renderScale,
-				menuImage.getHeight() * GameState.renderScale, null);
+		g.drawImage(menuImage, 0, 0, menuImage.getWidth(), menuImage.getHeight(), null);
+		start.render();
 	}
 
 }

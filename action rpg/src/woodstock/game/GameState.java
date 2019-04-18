@@ -9,15 +9,16 @@ public class GameState {
 	public static Player player;
 	public static Camera camera;
 	public static Level currentLevel;
-	public static double renderint = 1.5;
-	public static int renderScale = (int) (renderint * Main.SCALE);
+	public static int renderScale = 4;
 	public static int levelSeason = 0;
+	public static boolean running = false;
 
 	public static void init() {
 		Level.bean.tick();
 		player = Level.bean.player;
 		camera = new Camera(0, 0, player);
 		currentLevel = player.getLevel();
+		System.out.println(renderScale);
 	}
 
 }

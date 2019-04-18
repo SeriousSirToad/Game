@@ -36,9 +36,7 @@ public class Building extends Entity {
 
 	public void render() {
 		if (GameState.camera.contains(this) && !renderBounds.contains(GameState.player.collider)) {
-			Main.g.drawImage(image, (x * GameState.renderScale) - GameState.camera.x,
-					(y * GameState.renderScale) - GameState.camera.y, w * GameState.renderScale,
-					h * GameState.renderScale, null);
+			Main.g.drawImage(image, (x) - GameState.camera.x, (y) - GameState.camera.y, w, h, null);
 		}
 	}
 

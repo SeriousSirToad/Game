@@ -32,8 +32,10 @@ public class Camera {
 	public void render() {
 		Main.g.setColor(Color.black);
 		Main.g.fillRect(0, 0, Main.width(), Main.height());
-		if (level != null)
+		if (level != null && GameState.running)
 			level.render();
+		else
+			Main.menu.render();
 
 	}
 
@@ -43,16 +45,13 @@ public class Camera {
 		}
 		if (entity != null && level != null) {
 			followEntity();
-			// System.out.println("what the \rheck\r");
-		} else {
-			// System.out.println("what the \rheck\r");
 		}
 
 		if (level.getWidth() <= Main.width()) {
-			this.x = (level.getWidth() / 2) - Main.width() / 2;
+			this.x = ((level.getWidth() / 2) - Main.width() / 2) / GameState.renderScale;
 		}
 		if (level.getHeight() <= Main.height()) {
-			this.y = (level.getHeight() / 2) - Main.height() / 2;
+			this.y = ((level.getHeight() / 2) - Main.height() / 2) / GameState.renderScale;
 		}
 	}
 
@@ -63,13 +62,13 @@ public class Camera {
 		int entw = entity.w * GameState.renderScale;
 		int enth = entity.h * GameState.renderScale;
 
-		if (x > -1 && entx > (Main.width() / 2) - (entw / 2))
-			x = (entx - (Main.width() / 2) + entw / 2);
+		if (x > -1 && entx > (Main.WIDTH / 2) - (entw / 2))
+			x = (entx - (Main.WIDTH / 2) + entw / 2) / GameState.renderScale;
 		else
 			x = 0;
 
 		if (y > -1 && enty > (Main.height() / 2) - (enth / 2))
-			y = enty - (Main.height() / 2) + enth / 2;
+			y = (enty - (Main.height() / 2) + enth / 2) / GameState.renderScale;
 		else
 			y = 0;
 	}
@@ -92,7 +91,7 @@ public class Camera {
 		int ey = e.y * GameState.renderScale;
 		int ew = e.w * GameState.renderScale;
 		int eh = e.h * GameState.renderScale;
-		if (ex + ew < x  || ey + eh < y ) {
+		if (ex + ew < x || ey + eh < y) {
 			return false;
 		}
 		return true;

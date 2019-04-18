@@ -9,11 +9,13 @@ public class Assets {
 	// Mobs
 	public static final BufferedImage player = entities.getImage(0, 0, 16, 32);
 	public static final Animation pl_hz = new Animation(10, entities.getAnimation(16, 0, 16, 32, 4), false);
-	public static final Animation pl_u = new Animation(20, entities.getAnimation(144, 0, 16, 32, 3), true);
+	public static final Animation pl_u = new Animation(20, entities.getAnimation(128, 0, 16, 32, 3), true);
 	public static final Animation pl_dn = new Animation(20, entities.getAnimation(80, 0, 16, 32, 3), true);
 	
 	public static final BufferedImage cretin = entities.getImage(0, 48, 16, 16);
-	public static final Animation cr_hz = new Animation(10, entities.getAnimation(16, 0, 16, 32, 4), true);
+	public static final Animation cr_hz = new Animation(10, entities.getAnimation(16, 48, 16, 32, 4), false);
+	public static final Animation cr_u = new Animation(10, entities.getAnimation(128, 48, 16, 32, 3), true);
+	public static final Animation cr_dn = new Animation(10, entities.getAnimation(80, 48, 16, 32, 3), true);
 
 	// Flora
 	public static BufferedImage getTree(int type) {

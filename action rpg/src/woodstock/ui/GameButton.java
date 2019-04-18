@@ -14,18 +14,18 @@ public class GameButton {
 	private Rectangle buttonRect;
 
 	private String text;
-	
+
 	public boolean hasBeenClicked = false;
 	public boolean attatchedToEntity = false;
 	protected boolean onThis = false;
-	
+
 	public Color color;
 	public int numTimesClicked;
-	
+
 	public int x, y, width = 32, height = 16;
-	
+
 	protected InputHandler input;
-	
+
 	public BufferedImage buttonImage;
 
 	public GameButton(int x, int y, BufferedImage image) {
@@ -48,6 +48,8 @@ public class GameButton {
 		this.height = height;
 
 		buttonRect = new Rectangle(x, y, width, height);
+
+		input = Main.input;
 	}
 
 	public GameButton(int x, int y) {
@@ -55,13 +57,17 @@ public class GameButton {
 		this.y = y;
 
 		buttonRect = new Rectangle(x, y, width, height);
+
+		input = Main.input;
 	}
-	
+
 	public GameButton(int x, int y, String text) {
 		this.x = x;
 		this.y = y;
 
 		buttonRect = new Rectangle(x, y, width, height);
+
+		input = Main.input;
 	}
 
 	protected void onClick() {
@@ -70,10 +76,13 @@ public class GameButton {
 
 	public void tick() {
 
-		buttonRect.x = x;
-		buttonRect.y = y;
-		buttonRect.width = width;
-		buttonRect.height = height;
+		buttonRect.x = x * GameState.renderScale;
+		buttonRect.y = y * GameState.renderScale;
+		buttonRect.width = width * GameState.renderScale;
+		buttonRect.height = height * GameState.renderScale;
+
+		if (onThis && input.clicking())
+			hasBeenClicked = true;
 
 		if (hasBeenClicked && !input.clicking()) {
 			onClick();
@@ -93,15 +102,18 @@ public class GameButton {
 	public void render() {
 		Graphics g = Main.g;
 		g.setColor(kindaTransparent);
-		
-		if(text != null) {
-			g.drawString(text, x * GameState.renderScale, y * GameState.renderScale);
+
+		if (text != null) {
+			g.drawString(text, x, y);
 		}
-		
+
 		if (onThis) {
-			g.fillRect(x * GameState.renderScale, y * GameState.renderScale, width * GameState.renderScale,
-					height * GameState.renderScale);
+			g.fillRect(x, y, width, height);
 		}
+	}
+
+	public void setColor(Color color) {
+		kindaTransparent = new Color(color.getRed(), color.getGreen(), color.getBlue(), 100);
 	}
 
 }

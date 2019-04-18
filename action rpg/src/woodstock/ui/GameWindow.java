@@ -64,8 +64,7 @@ public class GameWindow {
 
 		Graphics g = Main.g;
 		if (image != null) {
-			g.drawImage(image, x * GameState.renderScale, y * GameState.renderScale, w * GameState.renderScale,
-					h * GameState.renderScale, null);
+			g.drawImage(image, x, y, w, h, null);
 		}
 		for (GameButton b : buttons) {
 			b.render();
@@ -74,8 +73,8 @@ public class GameWindow {
 	}
 
 	public void showText() {
-		for(Message m : messages) {
-			Main.g.drawString(m.text, m.x * GameState.renderScale, m.y * GameState.renderScale);
+		for (Message m : messages) {
+			Main.g.drawString(m.text, m.x, m.y);
 		}
 	}
 
